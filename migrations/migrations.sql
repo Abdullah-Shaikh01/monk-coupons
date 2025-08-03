@@ -17,7 +17,8 @@ CREATE TABLE IF NOT EXISTS coupons (
     type ENUM('cart-wise', 'product-wise', 'bxgy') NOT NULL,
     discount_value DECIMAL(10, 2),
     discount_type ENUM('percentage', 'fixed') NOT NULL DEFAULT 'percentage',
-    quantity INT, -- Used in bxgy as required buy quantity
+    buyQuantity INT, -- Used in bxgy as required buy quantity
+    getQuantity INT, -- Used in bxgy as required get quantity
     repetition_threshold INT, -- Used as repetition_limit (bxgy) or min cart value (cart-wise)
     product_id INT, -- For product-wise coupons
     expiration_date DATE DEFAULT (CURRENT_DATE + INTERVAL 1 MONTH),

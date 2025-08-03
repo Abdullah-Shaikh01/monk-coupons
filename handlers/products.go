@@ -3,15 +3,17 @@ package handlers
 import (
 	"database/sql"
 	"net/http"
-	"github.com/gin-gonic/gin"
+
 	"github.com/Abdullah-Shaikh01/monk-coupons/models"
+	"github.com/Abdullah-Shaikh01/monk-coupons/utils"
+	"github.com/gin-gonic/gin"
 )
 
 func GetAllProducts(db *sql.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		rows, err := db.Query("SELECT id, name, price FROM products")
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch products"})
+			utils.Error(c, http.StatusInternalServerError, "Failed to fetch products", err)
 			return
 		}
 		defer rows.Close()
@@ -20,12 +22,12 @@ func GetAllProducts(db *sql.DB) gin.HandlerFunc {
 		for rows.Next() {
 			var p models.Product
 			if err := rows.Scan(&p.ID, &p.Name, &p.Price); err != nil {
-				c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to parse products"})
+				utils.Error(c, http.StatusInternalServerError, "Failed to parse product row", err)
 				return
 			}
 			products = append(products, p)
 		}
 
-		c.JSON(http.StatusOK, products)
+		utils.Success(c, http.StatusOK, "Products retrieved successfully", products)
 	}
 }

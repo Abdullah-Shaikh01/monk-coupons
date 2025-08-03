@@ -8,8 +8,8 @@ import (
 )
 
 func RegisterRoutes(router *gin.Engine, db *sql.DB) {
-	// Product routes
 	router.GET("/products", handlers.GetAllProducts(db))
+	router.GET("/coupons", handlers.GetAllCoupons(db)) 
+	router.POST("/coupons", handlers.CreateCoupon(db))
 
-	// Add other routes here (e.g., /coupons etc.)
 }

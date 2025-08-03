@@ -9,7 +9,10 @@ import (
 
 func RegisterRoutes(router *gin.Engine, db *sql.DB) {
 	router.GET("/products", handlers.GetAllProducts(db))
-	router.GET("/coupons", handlers.GetAllCoupons(db)) 
+	router.GET("/coupons", handlers.GetAllCoupons(db))
+	router.GET("/coupons/:id", handlers.GetCouponByID(db))
 	router.POST("/coupons", handlers.CreateCoupon(db))
+	router.PUT("/coupons/:id", handlers.UpdateCoupon(db))
+	router.DELETE("/coupons/:id", handlers.DeleteCoupon(db))
 
 }

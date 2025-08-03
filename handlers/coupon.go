@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/Abdullah-Shaikh01/monk-coupons/models"
@@ -22,6 +23,23 @@ func GetAllCoupons(db *sql.DB) gin.HandlerFunc {
 		utils.Success(c, http.StatusOK, "Coupons retrieved successfully", coupons)
 	}
 }
+
+func GetCouponByID(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		id := c.Param("id")
+		coupon, err := services.GetCouponByID(db, id)
+		if err != nil {
+			if err == sql.ErrNoRows {
+				utils.ErrorWithoutErr(c, http.StatusNotFound, "Coupon not found")
+			} else {
+				utils.Error(c, http.StatusInternalServerError, "Failed to retrieve coupon", err)
+			}
+			return
+		}
+		utils.Success(c, http.StatusOK, "Coupon retrieved successfully", coupon)
+	}
+}
+
 
 func CreateCoupon(db *sql.DB) gin.HandlerFunc {
     return func(c *gin.Context) {
@@ -155,3 +173,54 @@ func CreateCoupon(db *sql.DB) gin.HandlerFunc {
         utils.Success(c, http.StatusCreated, "Coupon created successfully", map[string]int64{"coupon_id": couponID})
     }
 }
+
+func UpdateCoupon(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		idParam := c.Param("id")
+		couponID, err := strconv.Atoi(idParam)
+		if err != nil {
+			utils.ErrorWithoutErr(c, http.StatusBadRequest, "Invalid coupon ID")
+			return
+		}
+
+		var updates map[string]interface{}
+		if err := c.ShouldBindJSON(&updates); err != nil {
+			utils.Error(c, http.StatusBadRequest, "Invalid JSON payload", err)
+			return
+		}
+
+		couponType, err := services.GetCouponTypeByID(db, couponID)
+		if err != nil {
+			utils.Error(c, http.StatusInternalServerError, "Failed to fetch coupon type of " + strconv.Itoa(couponID) + " id", err)
+			return
+		}
+
+		err = services.UpdateCouponService(db, couponID, couponType, updates)
+		if err != nil {
+			utils.Error(c, http.StatusInternalServerError, "Failed to update coupon", err)
+			return
+		}
+
+		utils.Success(c, http.StatusOK, "Coupon updated successfully", nil)
+	}
+}
+
+func DeleteCoupon(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		idParam := c.Param("id")
+		couponID, err := strconv.Atoi(idParam)
+		if err != nil {
+			utils.ErrorWithoutErr(c, http.StatusBadRequest, "Invalid coupon ID")
+			return
+		}
+
+		err = services.DeleteCouponService(db, couponID)
+		if err != nil {
+			utils.Error(c, http.StatusInternalServerError, "Failed to delete coupon", err)
+			return
+		}
+
+		utils.Success(c, http.StatusOK, "Coupon deleted successfully", nil)
+	}
+}
+

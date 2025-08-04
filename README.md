@@ -1,5 +1,4 @@
-# README
-### Monk-Coupons
+# Monk-Coupons
 This project implements a coupon management system in Go, supporting cart-wise, product-wise, and buy-x-get-y (BxGy) discount types with RESTful APIs. It allows applying coupons to shopping carts with flexible discount rules, including expiration and repetition thresholds.
 
 ## Transparency Note

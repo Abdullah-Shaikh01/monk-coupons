@@ -41,7 +41,8 @@ This is my first Go language project. I have learned Go while completing this ta
   - Complete CRUD for coupons and get all products.  
   - Application of coupon by ID and retrieving all applicable coupons given a cart.
 
-- **Validation and Expiration:**  
+- **Validation and Expiration:**
+  - Handled invalid requests, bad data and other such validations.
   - Coupon expiration enforcement on application.  
   - Partial update validation based on coupon type fields.
 
@@ -162,7 +163,3 @@ go run main.go
 ```
 
 ---
-
-## 📬 API Documentation
-
-Refer to the [Postman collection](https://www.postman.com/maintenance-cosmonaut-35719276/monk-coupons/collection/xxm173m/monk-coupons?action=share&creator=21298069) for sample requests and responses.

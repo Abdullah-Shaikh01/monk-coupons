@@ -29,7 +29,7 @@ func ApplyCouponByID(db *sql.DB) gin.HandlerFunc {
             }
             return
         }
-		
+
         var input struct {
             Cart models.Cart `json:"cart"`
         }
@@ -72,6 +72,28 @@ func ApplyCouponByID(db *sql.DB) gin.HandlerFunc {
                 "total_discount": totalDiscount,
                 "final_price":   finalPrice,
             },
+        })
+    }
+}
+
+func GetApplicableCouponsHandler(db *sql.DB) gin.HandlerFunc {
+    return func(c *gin.Context) {
+        var input struct {
+            Cart models.Cart `json:"cart"`
+        }
+        if err := c.ShouldBindJSON(&input); err != nil {
+            utils.Error(c, http.StatusBadRequest, "Invalid JSON payload", err)
+            return
+        }
+
+        applicableCoupons, err := services.GetApplicableCoupons(db, input.Cart)
+        if err != nil {
+            utils.Error(c, http.StatusInternalServerError, "Failed to fetch applicable coupons", err)
+            return
+        }
+
+        c.JSON(http.StatusOK, gin.H{
+            "applicable_coupons": applicableCoupons,
         })
     }
 }

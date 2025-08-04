@@ -139,3 +139,41 @@ func ApplyBxGyCoupon(db *sql.DB, couponID int, cart models.Cart) (models.Cart, f
 
     return cart, totalDiscount, nil
 }
+
+func GetApplicableCoupons(db *sql.DB, cart models.Cart) ([]map[string]interface{}, error) {
+    coupons, err := GetAllCoupons(db)
+    if err != nil {
+        return nil, err
+    }
+
+    var applicable []map[string]interface{}
+    for _, coupon := range coupons {
+        if time.Now().After(coupon.ExpirationDate) {
+            continue
+        }
+
+        var discount float64
+        var err error
+
+        switch coupon.Type {
+        case "cart-wise":
+            _, discount, err = ApplyCartWiseCoupon(db, coupon.ID, cart)
+        case "product-wise":
+            _, discount, err = ApplyProductWiseCoupon(db, coupon.ID, cart)
+        case "bxgy":
+            _, discount, err = ApplyBxGyCoupon(db, coupon.ID, cart)
+        default:
+            continue // Ignore unsupported coupon types
+        }
+
+        if err == nil && discount > 0 {
+            applicable = append(applicable, map[string]interface{}{
+                "coupon_id": coupon.ID,
+                "type":      coupon.Type,
+                "discount":  discount,
+            })
+        }
+    }
+
+    return applicable, nil
+}

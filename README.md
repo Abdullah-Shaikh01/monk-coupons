@@ -162,4 +162,8 @@ Start the API server:
 go run main.go
 ```
 
+## Sample API Requests and Responses
+
+For detailed examples of API requests and responses, please refer to the [API Examples](https://github.com/Abdullah-Shaikh01/monk-coupons/blob/main/API_Examples.md) file. It contains comprehensive input/output samples to help you understand how to interact with the API effectively.
+
 ---

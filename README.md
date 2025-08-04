@@ -30,21 +30,54 @@ This is my first Go language project. I have learned Go while completing this ta
 
 ---
 
-## Implemented Cases
+## Implemented Use Cases
 
-- **Coupon Types:**  
-  - Cart-wise coupons that apply discounts on cart totals exceeding a threshold.  
-  - Product-wise coupons targeting specific products.  
-  - BxGy coupons supporting buy and get product sets with repetition limits.
+1. ✅ **Cart-wise Coupons**  
+   - **Condition:** Discount applies to entire cart if total exceeds a threshold  
+   - **Discount:** Fixed or percentage  
+   - **Fields:** `discount_value`, `discount_type`, `repetition_threshold` (as threshold)  
+   - **Examples:**  
+     - 10% off if cart total > ₹500  
+     - Flat ₹50 off on cart total > ₹1000  
 
-- **API Coverage:**  
-  - Complete CRUD for coupons and get all products.  
-  - Application of coupon by ID and retrieving all applicable coupons given a cart.
+2. ✅ **Product-wise Coupons**  
+   - **Condition:** Discount only if specific product exists in cart  
+   - **Discount:** Fixed or percentage  
+   - **Fields:** `product_id`, `discount_value`, `discount_type`  
+   - **Examples:**  
+     - ₹100 off on Laptop  
+     - 25% off on Mouse  
 
-- **Validation and Expiration:**
-  - Handled invalid requests, bad data and other such validations.
-  - Coupon expiration enforcement on application.  
-  - Partial update validation based on coupon type fields.
+3. ✅ **BxGy (Buy X, Get Y Free) Coupons**  
+   - **Condition:** Buy `buyQuantity` of products from one list, get `getQuantity` of products from another list  
+   - **Fields:** `buyQuantity`, `getQuantity`, `repetition_threshold`  
+   - Buy and Get product arrays (stored in separate tables)  
+   - **Examples:**  
+     - Buy 3 of [X, Y], Get 1 of [Z] free  
+     - Repeat up to 2 times if enough items in cart  
+
+4. ✅ **Expiry Check on Coupons**  
+   - All coupons include an `expiration_date`, checked before application  
+
+5. ✅ **Selective Field Updates**  
+   - Coupon update is type-safe:  
+     - Cart-wise: Only `discount_value` and `repetition_threshold`  
+     - Product-wise: Only `discount_value` and `product_id`  
+     - BxGy: Only `buyQuantity` and `getQuantity`  
+
+6. ✅ **Coupon Application & Cart Update**  
+   - Applies discount and returns:  
+     - `updated_cart` with:  
+       - `total_price`  
+       - `total_discount`  
+       - `final_price`  
+       - Item-wise `total_discount`  
+   - Validation includes:  
+     - Threshold met for cart-wise  
+     - Product presence for product-wise  
+     - Quantity match and repetition logic for BxGy  
+     - Coupon not expired  
+
 
 ---
 

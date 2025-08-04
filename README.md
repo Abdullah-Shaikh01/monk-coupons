@@ -82,17 +82,6 @@ This is my first Go language project. I have learned Go while completing this ta
 - **Incomplete Test Coverage:**  
   Automated tests do not yet cover all functionalities fully and require further validation.
 
----
-
-This README outlines the project’s current scope, design assumptions, operational coverage, and the areas left for future improvements, providing a clear understanding of what is delivered and the intended direction.
-
-
-# 🧾 Monk Coupons API
-
-This is a Go-based backend service for managing and applying coupon logic, using MySQL as the database.
-
----
-
 ## 🚀 How to Run the Project Locally
 
 ### 1. 🛠 Install Go and MySQL

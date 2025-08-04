@@ -165,4 +165,4 @@ go run main.go
 
 ## 📬 API Documentation
 
-Refer to the [Postman collection](#) (if available) for sample requests and responses.
+Refer to the [Postman collection](https://www.postman.com/maintenance-cosmonaut-35719276/monk-coupons/collection/xxm173m/monk-coupons?action=share&creator=21298069) for sample requests and responses.

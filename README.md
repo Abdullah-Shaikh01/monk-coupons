@@ -38,7 +38,7 @@ This is my first Go language project. I have learned Go while completing this ta
   - BxGy coupons supporting buy and get product sets with repetition limits.
 
 - **API Coverage:**  
-  - Complete CRUD for coupons and products.  
+  - Complete CRUD for coupons and get all products.  
   - Application of coupon by ID and retrieving all applicable coupons given a cart.
 
 - **Validation and Expiration:**  

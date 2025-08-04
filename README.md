@@ -84,3 +84,85 @@ This is my first Go language project. I have learned Go while completing this ta
 ---
 
 This README outlines the project’s current scope, design assumptions, operational coverage, and the areas left for future improvements, providing a clear understanding of what is delivered and the intended direction.
+
+
+# 🧾 Monk Coupons API
+
+This is a Go-based backend service for managing and applying coupon logic, using MySQL as the database.
+
+---
+
+## 🚀 How to Run the Project Locally
+
+### 1. 🛠 Install Go and MySQL
+
+#### Go
+- Download and install from: [https://golang.org/dl/](https://golang.org/dl/)
+- Set up Go environment variables (`GOROOT`, `GOPATH`) as per your OS instructions.
+
+#### MySQL
+- Download and install from: [https://dev.mysql.com/downloads/mysql/](https://dev.mysql.com/downloads/mysql/)
+- Start the MySQL service.
+- Create a new database (e.g., `monk_coupons`) for this project.
+
+---
+
+### 2. 🧱 Set Up the Database
+
+- Create the database:
+
+```sql
+CREATE DATABASE monk_coupons;
+```
+
+- Update your `.env` file:
+
+```env
+DB_USER=your_mysql_username
+DB_PASS=your_mysql_password
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=monk_coupons
+```
+
+- Run database migrations:
+
+```bash
+go run migrations/migrations.go
+```
+
+---
+
+### 3. 📦 Install Project Dependencies
+
+From the project root, run:
+
+```bash
+go mod tidy
+```
+
+This will download all necessary Go modules.
+
+---
+
+### 4. 🧪 Run Tests (if any)
+
+```bash
+go test -v ./...
+```
+
+---
+
+### 5. ▶️ Run the Project
+
+Start the API server:
+
+```bash
+go run main.go
+```
+
+---
+
+## 📬 API Documentation
+
+Refer to the [Postman collection](#) (if available) for sample requests and responses.

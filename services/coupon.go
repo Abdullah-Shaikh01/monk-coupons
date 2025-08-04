@@ -151,12 +151,6 @@ func CreateCouponService(db *sql.DB, coupon models.Coupon, buyProducts []int, ge
     return couponID, "Added Coupon Successfully", nil
 }
 
-func GetCouponTypeByID(db *sql.DB, couponID int) (string, error) {
-	var couponType string
-	err := db.QueryRow("SELECT type FROM coupons WHERE id = ?", couponID).Scan(&couponType)
-	return couponType, err
-}
-
 func UpdateCouponService(db *sql.DB, couponID int, couponType string, updates map[string]interface{}) error {
 	allowedFields := map[string]bool{}
 

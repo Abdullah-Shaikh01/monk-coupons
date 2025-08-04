@@ -14,5 +14,6 @@ func RegisterRoutes(router *gin.Engine, db *sql.DB) {
 	router.POST("/coupons", handlers.CreateCoupon(db))
 	router.PUT("/coupons/:id", handlers.UpdateCoupon(db))
 	router.DELETE("/coupons/:id", handlers.DeleteCoupon(db))
+	router.POST("/apply-coupon/:id", handlers.ApplyCouponByID(db))
 
 }

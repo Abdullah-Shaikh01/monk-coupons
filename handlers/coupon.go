@@ -189,7 +189,7 @@ func UpdateCoupon(db *sql.DB) gin.HandlerFunc {
 			return
 		}
 
-		couponType, err := services.GetCouponTypeByID(db, couponID)
+		couponType, err := utils.GetCouponTypeByID(db, couponID)
 		if err != nil {
 			utils.Error(c, http.StatusInternalServerError, "Failed to fetch coupon type of " + strconv.Itoa(couponID) + " id", err)
 			return
@@ -223,4 +223,3 @@ func DeleteCoupon(db *sql.DB) gin.HandlerFunc {
 		utils.Success(c, http.StatusOK, "Coupon deleted successfully", nil)
 	}
 }
-

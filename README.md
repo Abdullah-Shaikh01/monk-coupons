@@ -57,7 +57,7 @@ This is my first Go language project. I have learned Go while completing this ta
      - Repeat up to 2 times if enough items in cart  
 
 4. ✅ **Expiry Check on Coupons**  
-   - All coupons include an `expiration_date`, checked before application  
+   - All coupons include an `expiration_date`, checked before application and this is either given in the request payload or defaulted to one month from today.
 
 5. ✅ **Selective Field Updates**  
    - Coupon update is type-safe:  
